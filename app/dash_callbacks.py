@@ -11,7 +11,10 @@ from datetime import datetime as DateTime
 from flask import session
 from glob import glob
 import data_functions
+import os
 
+
+data_folder = os.environ["ELECTION_DATA_FOLDER"]
 
 no_update_interval = [dash.no_update, dash.no_update]
 
