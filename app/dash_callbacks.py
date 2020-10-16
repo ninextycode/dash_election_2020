@@ -15,7 +15,7 @@ import os
 
 
 data_folder = os.environ["ELECTION_DATA_FOLDER"]
-data_size = os.environ.get("DATA_SIZE", 100000)
+data_size = int(os.environ.get("DATA_SIZE", 100000))
 
 
 no_update_interval = [dash.no_update, dash.no_update]
