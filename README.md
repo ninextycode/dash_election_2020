@@ -1,1 +1,3 @@
-# dash_elections_2020
+# Election 2020 Webapp
+
+Dash Plotly web app to display an interactive simulation of the 2020 presidential election
