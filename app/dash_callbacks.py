@@ -47,7 +47,7 @@ def set_session_dict(session_dict):
 
 
 def init_session_data():
-    csv_filenames = glob("data/simulations_data/*.csv")
+    csv_filenames = glob(f"{data_folder}/*.csv")
     elections_data = data_functions.load_data(csv_filenames)
     n = 100000
     new_session_dict = dict(
