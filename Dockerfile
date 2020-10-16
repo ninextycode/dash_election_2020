@@ -9,5 +9,5 @@ RUN pip3 install -r requirements.txt
 
 ENV ELECTION_DATA_FOLDER /data
 
-ENTRYPOINT ["gunicorn", "app.factory:build_server()"]
+ENTRYPOINT ["gunicorn", "app.factory:build_server()", "--bind", "0.0.0.0"]
 CMD ["-w",  "1"]
