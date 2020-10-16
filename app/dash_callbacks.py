@@ -15,6 +15,8 @@ import os
 
 
 data_folder = os.environ["ELECTION_DATA_FOLDER"]
+data_size = os.environ.get("DATA_SIZE", 100000)
+
 
 no_update_interval = [dash.no_update, dash.no_update]
 
@@ -49,10 +51,9 @@ def set_session_dict(session_dict):
 def init_session_data():
     csv_filenames = glob(f"{data_folder}/*.csv")
     elections_data = data_functions.load_data(csv_filenames)
-    n = 100000
     new_session_dict = dict(
         data_model=DataModel(
-            elections_data.iloc[random.sample(range(len(elections_data)), n)]
+            elections_data.iloc[random.sample(range(len(elections_data)), data_size)]
         ),
         random_data_sample=None,
         random_sample_mode=False,
