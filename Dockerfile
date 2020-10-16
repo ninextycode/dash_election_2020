@@ -3,9 +3,12 @@ FROM ubuntu:20.04
 RUN apt-get update
 RUN apt-get install -y python3-pip
 
-COPY . /elections_2020
 WORKDIR /elections_2020
+
+COPY requirements.txt ./
 RUN pip3 install -r requirements.txt
+
+COPY . /elections_2020
 
 ENV ELECTION_DATA_FOLDER /data
 
