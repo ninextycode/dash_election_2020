@@ -37,7 +37,7 @@ class DashFigures:
     def fig_map_538(self):
         if self.data_model.data_changed or self.new_random_538_map or self.new_average_538_map:
             if self.random_sample_mode:
-                fig = plotly_figures.fig_chance_dem_win(self.random_data_sample)
+                fig = plotly_figures.fig_dem_vote_share(self.random_data_sample.iloc[0])
             else:
                 fig = plotly_figures.fig_chance_dem_win(self.data_model.data)
         else:

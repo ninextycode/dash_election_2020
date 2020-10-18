@@ -20,6 +20,89 @@ def fig_empty_us_map():
     return fig
 
 
+def get_ec_size_labels(states=None):
+    if states is None:
+        states_no_dc = list(state_const.states)
+        states_no_dc.remove("DC")
+        states = states_no_dc
+
+    offsets = {"LA": -3, "FL": 4}
+
+    def get_ec_lbl(s):
+        lbl = f"{state_const.ec_vote_size[s]}"
+        offset = offsets.get(s, 0)
+        if offset > 0:
+            lbl = offset * " " + lbl
+        elif offset < 0:
+            lbl = lbl + " " * -offset
+        return lbl
+
+    return go.Scattergeo(
+        text=[get_ec_lbl(s) for s in states],
+        locations=states,
+        mode="text",
+        locationmode="USA-states",
+        hoverinfo="skip",
+        textfont=dict(size=14, color="black")
+    )
+
+
+def fig_dem_vote_share(vote_share_data, colors_as_share=False):
+    def state_text(s):
+        lines = [f"{s} vote share"]
+
+        trump_line = f"- Trump: {100 - vote_share_data[s] * 100:.2f}%"
+        biden_line = f"- Biden: {vote_share_data[s] * 100:.2f}%"
+        if vote_share_data[s] >= 0.5:
+            lines += [biden_line, trump_line]
+        else:
+            lines += [trump_line, biden_line]
+
+        return "<br>".join(lines)
+
+    states = list(state_const.states)
+    if colors_as_share:
+        z = vote_share_data[states]
+        clip_min = 0.39
+        clip_max = 0.61
+        z = np.clip(z, clip_min, clip_max)
+
+        color_offset = 0.05
+        z = (
+            (z >= 0.5) * color_offset +
+            (z < 0.5) * (-color_offset) +
+            z
+        )
+        zmin = clip_min - color_offset
+        zmax = clip_max + color_offset
+    else:
+        z = 1 * (vote_share_data[states] >= 0.5)
+        zmin = 0
+        zmax = 1
+
+    fig = go.Figure(data=[
+        go.Choropleth(
+            text=[state_text(s) for s in states],
+            hoverinfo="text",
+            locations=states,
+            z=z,
+            locationmode='USA-states',
+            colorscale=colorscale1,
+            zmid=0.5, zmin=zmin, zmax=zmax
+        ),
+    ])
+
+    fig.update_traces(showscale=False)
+
+    fig.add_trace(
+        get_ec_size_labels()
+    )
+
+    fig.update_layout(geo_scope='usa')
+
+    return fig
+
+
 def fig_chance_dem_win(data):
     n = len(data)
 
@@ -49,17 +132,8 @@ def fig_chance_dem_win(data):
 
     fig.update_traces(showscale=False)
 
-    ec_vote_size_ = state_const.ec_vote_size.copy()
-    ec_vote_size_.pop("DC")
-
-    fig.add_trace(go.Scattergeo(
-        text=[f"{s}" for s in ec_vote_size_.values()],
-        locations=list(ec_vote_size_.keys()),
-        mode="text",
-        locationmode="USA-states",
-        hoverinfo="skip",
-        textfont=dict(size=14, color="black")
-    )
+    fig.add_trace(
+        get_ec_size_labels()
     )
 
     fig.update_layout(geo_scope='usa')

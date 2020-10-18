@@ -325,12 +325,12 @@ class DashLayout:
                 dcc.Input(
                     value=0,
                     id=dict(type="rep_ec_vote_lower_limit"),
-                    type="text", pattern=zero_538_pattern, debounce=True, size="2"
+                    type="text", pattern=zero_538_pattern, debounce=True, size="3"
                 ), " to ",
                 dcc.Input(
                     value=538,
                     id=dict(type="rep_ec_vote_upper_limit"),
-                    type="text", pattern=zero_538_pattern, debounce=True, size="2"
+                    type="text", pattern=zero_538_pattern, debounce=True, size="3"
                 )],
                 className="mb-1"
             ),
@@ -377,12 +377,12 @@ class DashLayout:
                 dcc.Input(
                     value=0,
                     id=dict(type="rep_n_states_win_lower_limit"),
-                    type="text", pattern=zero_51, debounce=True, size="1"
+                    type="text", pattern=zero_51, debounce=True, size="2"
                 ), " to ",
                 dcc.Input(
                     value=51,
                     id=dict(type="rep_n_states_win_upper_limit"),
-                    type="text", pattern=zero_51, debounce=True, size="1"
+                    type="text", pattern=zero_51, debounce=True, size="2"
                 )],
                 className="mb-1"
             ),
@@ -453,7 +453,7 @@ class DashLayout:
             dem_vote = self.random_data_sample[s].iloc[0]
             winner = "Trump" if dem_vote < 0.5 else "Biden"
             point_lead = np.abs(data_functions.vote_share_to_point_lead(dem_vote))
-            states_summary_line.append(f"{s}: {winner}(+{point_lead:.2f})")
+            states_summary_line.append(f"{s}: {winner}(+{point_lead:.1f})")
             if len(states_summary_line) == 5:
                 states_summary_lines.append(", ".join(states_summary_line))
                 states_summary_line = []
