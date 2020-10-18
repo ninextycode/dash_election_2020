@@ -230,7 +230,7 @@ def _get_bins_dict(data, n_bins=None):
     nv_min = np.ceil(data.min() * 100) / 100
     nv_max = np.floor(data.max() * 100) / 100
     if n_bins is None:
-        n_bins = min(50., max(10., len(data) / 1000))
+        n_bins = min(50., max(10., len(data) / 100))
     step = (nv_max - nv_min) / n_bins
     return dict(start=nv_min, end=nv_max, size=step)
 

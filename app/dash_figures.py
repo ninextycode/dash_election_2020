@@ -8,14 +8,15 @@ natl_hist_layout = dict(
     margin=dict(b=0, t=0, l=0, r=0),
     selectdirection="h",
     yaxis=dict(showticklabels=False),
-    dragmode="select"
+    dragmode="select",
 )
 state_hist_layout = dict(
     height=80,
     margin=dict(b=0, t=0, l=0, r=0),
     selectdirection="h",
     yaxis=dict(showticklabels=False),
-    dragmode="select"
+    xaxis=dict(ticksuffix="%"),
+    dragmode="select",
 )
 
 
@@ -72,6 +73,7 @@ class DashFigures:
             return dash.no_update
         fig = plotly_figures.fig_rep_natl_vote_hist(self.data_model.data)
         fig.update_layout(**natl_hist_layout)
+        fig.update_layout(xaxis=dict(ticksuffix="%"))
         return fig
 
     def fig_ec_vote_hist(self):
