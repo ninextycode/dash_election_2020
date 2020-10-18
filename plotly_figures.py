@@ -194,15 +194,27 @@ def fig_ec_bar(data):
             ticktext=tick_text,
             tickmode="array"
         ),
-        title=dict(
-            text=f"Biden <b>{biden_win}</b>" + "\t" * 7 + f"<b>{trump_win}</b> Trump",
-            x=0.5, y=0.95,
-            font=dict(size=24)
-        ),
         dragmode=False
     )
     fig.update_layout(showlegend=False)
-
+    fig.update_layout(
+        annotations=[
+            dict(
+                x=0.08, y=2.3,
+                showarrow=False,
+                text=f"<b>Biden {biden_win}</b>",
+                xref="paper", yref="paper",
+                font=dict(size=24, color=d_blue)
+            ),
+            dict(
+                x=0.92, y=2.3,
+                showarrow=False,
+                text=f"<b>{trump_win} Trump</b>",
+                xref="paper", yref="paper",
+                font=dict(size=24, color=r_red)
+            )
+        ]
+    )
     fig.update_layout(shapes=[
         dict(
             type="line", line=dict(width=3, color="black"),
