@@ -270,7 +270,7 @@ class DashLayout:
                 config=natl_hist_config
             ),
             html.Div([
-                "Trump limit: ",
+                "Trump: from ",
                 dcc.Input(
                     value=0,
                     id=dict(type="rep_natl_vote_lower_limit"),
@@ -321,7 +321,7 @@ class DashLayout:
                 config=natl_hist_config
             ),
             html.Div([
-                "Trump limit: ",
+                "Trump: from ",
                 dcc.Input(
                     value=0,
                     id=dict(type="rep_ec_vote_lower_limit"),
@@ -373,7 +373,7 @@ class DashLayout:
                 config=natl_hist_config
             ),
             html.Div([
-                "Trump limit: ",
+                "Trump: from ",
                 dcc.Input(
                     value=0,
                     id=dict(type="rep_n_states_win_lower_limit"),
